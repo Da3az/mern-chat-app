@@ -1,0 +1,37 @@
+.nav{
+   background-color:#FE5F55;
+   display:flex;
+   justify-content:space-between;
+   height: 50px;
+}
+
+.nav__logo{
+    color:#333745;
+    font-size: 20px;
+    padding: 10px 40px;
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+
+.nav__logo span{
+    width:30px
+}
+
+.nav__navbar{
+    display:flex;
+    align-items:center
+}
+
+.nav button{
+    margin:10px 20px;
+    padding: 6px;
+    display:flex;
+    align-items: center;
+    cursor:pointer;
+}
+
+.nav button span{
+    font-size:15px;
+    margin-left: 5px;
+}
