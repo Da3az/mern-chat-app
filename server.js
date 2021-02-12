@@ -9,13 +9,7 @@ const path = require('path')
 
 app.use(express.json());
 
-var corsOptions = {
-  origin: 'http://localhost:3000/',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-
-app.use(cors(corsOptions))
-
+app.use(cors())
 
 require('dotenv').config();
 
@@ -25,7 +19,17 @@ mongoose.connect(uri,{useNewUrlParser : true,useUnifiedTopology: true},()=>{
     console.log('successfully connected to database');
 });
 mongoose.set('useFindAndModify', false);
-var io = require('socket.io')(http);
+
+
+
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
+  }
+});
 
 const userRouter = require('./routes/userRouter');
 const chatRouter = require('./routes/chatRouter');
@@ -34,7 +38,7 @@ const ioRouter = require('./routes/ioRouter')(io);
 
 app.use('/user',userRouter);
 app.use('/chat',chatRouter);
-app.use('/', ioRouter);
+app.use('/',ioRouter);
 
 app.use(express.static('public'))
 app.get('*',(req,res)=>{

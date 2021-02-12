@@ -1,12 +1,9 @@
 const express = require('express');
 const ioRouter = express.Router();
 const User = require('../models/User');
-const cors = require('cors')
 
-ioRouter.use(cors())
 
 module.exports = function (io) {
-
 
     //Socket.IO
     io.on('connection', (socket) => {
