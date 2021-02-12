@@ -58,11 +58,11 @@ chatRouter.get('/authenticated',(req,res)=>{
 
 
 chatRouter.post('/message',async (req,res) => {   
-  var {message} = req.body
-  const newMessage = new Message(message)
+  const newMessage = new Message(req.body)
   newMessage.save((err) => {
       if(err)
         {res.json(err)}
+      else res.json('message success')  
   })
 })
 

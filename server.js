@@ -3,9 +3,11 @@ const express = require('express');
 var http = require('http').createServer(app);
 const PORT = process.env.PORT || 5000
 var cors = require('cors')
-
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const path = require('path')
+
+
 app.use(cookieParser());
 app.use(express.json());
 
@@ -16,13 +18,12 @@ var corsOptions = {
 
 app.use(cors(corsOptions))
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000/"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
-mongoose.connect('mongodb+srv://salah:chaki999@cluster0.vdj1l.mongodb.net/mern-chat?retryWrites=true&w=majority',{useNewUrlParser : true,useUnifiedTopology: true},()=>{
+require('dotenv').config();
+
+const uri = process.env.ATLAS_URI
+
+mongoose.connect(uri,{useNewUrlParser : true,useUnifiedTopology: true},()=>{
     console.log('successfully connected to database');
 });
 mongoose.set('useFindAndModify', false);
@@ -37,6 +38,10 @@ app.use('/user',userRouter);
 app.use('/chat',chatRouter);
 app.use('/', ioRouter);
 
+app.use(express.static('public'))
+app.get('*',(req,res)=>{
+  res.sendFile(path.resolve(__dirname,'public','index.html'))
+})
 
 
 http.listen(PORT,()=>{

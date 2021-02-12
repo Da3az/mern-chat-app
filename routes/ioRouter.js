@@ -14,14 +14,8 @@ module.exports = function (io) {
           let socketId = socket.id
           await User.findOneAndUpdate({socketId:socketId}, {connected:false}).then(() => {
             let type ='users-up'
-             socket.broadcast.emit('data-update',type)
+             socket.broadcast.emit('users-up')
           });    
-        });
-
-        socket.on('logout',async ()=> {
-          let type ='users-up'       
-          socket.broadcast.emit('data-update',type)
-         
         });
 
         socket.on('user-signin',(id) => {
@@ -33,30 +27,32 @@ module.exports = function (io) {
               console.log(err) 
               } 
               else{ 
-              let type = 'users-up'
-              socket.broadcast.emit('data-update',type)
+              socket.broadcast.emit('users-up')
               } 
           });
           
         })
         
         socket.on('user-register',() => {
-          let type = 'users-up'
-          socket.broadcast.emit('data-update',type)
+          socket.broadcast.emit('users-up')
+        })
+
+        socket.on('user-logout',() => {
+          socket.broadcast.emit('users-up')
         })
           
-        socket.on('new-message',(roomId,content,targetId,username)=> {
-          socket.to(targetId).broadcast.emit('message-sent',roomId,content,username)
+        socket.on('new-message',(roomName,content,targetId,username)=> {
+          console.log('new-message',targetId)
+          console.log('roomName:', {roomName,content,username})
+          socket.to(targetId).broadcast.emit('message-sent',{roomName,content,username})
         })
         
-        socket.on('room-message',(roomId,content,username) => {
-          socket.broadcast.emit('message-sent',roomId,content,username)
+        socket.on('room-message',(roomName,content,username) => {
+          socket.broadcast.emit('message-sent',{roomName,content,username})
         })
 
         socket.on('rooms-change',(roomname)=>{
-          var type = 'rooms-update'
-          var info = roomname 
-          socket.broadcast.emit('data-update',type,info)
+          socket.broadcast.emit('rooms-update',roomname)
         })
       
         socket.on('room-exit',(name,id)=>{
