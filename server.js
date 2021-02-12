@@ -3,12 +3,10 @@ const express = require('express');
 var http = require('http').createServer(app);
 const PORT = process.env.PORT || 5000
 var cors = require('cors')
-const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const path = require('path')
 
 
-app.use(cookieParser());
 app.use(express.json());
 
 var corsOptions = {
