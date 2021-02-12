@@ -58,6 +58,6 @@ $ npm run build
 6. Execute the app:<br/>
 ```
 $ cd ..
-$ npm run start
+$ npm run dev
 ```
 8. App now running on ```localhost:5000```
