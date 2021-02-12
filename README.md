@@ -1,9 +1,9 @@
-# REACT/FIREBASE anime app
+# MERN chat app
 
 <img src="githubImg/chat-app.jpg"/>
 
 ## Description
-Chat app built with REACT and NODEJS.
+Chat app built with MERN stack.
 Real time chat and user authentication,also some other functionalities,check live demo on https://mern-socket-chat-app.herokuapp.com
 
 ## Technologies & Tools
