@@ -3,10 +3,8 @@
 <img src="githubImg/chat-app.jpg"/>
 
 ## Description
-chat app built with REACT and NODEJS .
-
-
-Live demo on https://mern-socket-chat-app.herokuapp.com
+Chat app built with REACT and NODEJS.
+Real time chat and user authentication,also some other functionalities,check live demo on https://mern-socket-chat-app.herokuapp.com
 
 ## Technologies & Tools
 
